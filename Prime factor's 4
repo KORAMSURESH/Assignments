@@ -1,0 +1,43 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+vector<long> sieve(1000001);
+long arr[1000001] = {0};
+int main()
+{
+#ifndef ONLINE_JUDGE
+    freopen("input1.txt", "r", stdin);
+    freopen("output1.txt", "w", stdout);
+#endif
+    long count = 0, X, t;
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    for (long i = 2; i <= 1000000; i++)
+    {
+        sieve[i] = i;
+    }
+    for (long i = 2; i * i <= 1000000; i++)
+    {
+        if (sieve[i] == i)
+        {
+            for (long j = i * i; j <= 1000000; j += i)
+            {
+                if (sieve[j] == j)
+                {
+                    sieve[j] = i;
+                    count++;
+                }
+            }
+            arr[i] = count;
+            count= 0;
+        }
+    }
+    cin >> t;
+    while (t--)
+    {
+        cin >> X;
+        cout << arr[X] + 1 << "\n";
+    }
+    return 0;
+ 
+}
